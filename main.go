@@ -14,6 +14,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/store/packs", getNumOfPacks)
+	mux.HandleFunc("/healthcheck", healthCheck)
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
@@ -41,4 +42,8 @@ func getNumOfPacks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprint(w, string(res))
+}
+
+func healthCheck(w http.ResponseWriter, _ *http.Request) {
+	fmt.Fprint(w, string("Ok"))
 }
