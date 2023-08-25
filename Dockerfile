@@ -1,7 +1,10 @@
-FROM golang:alpine3.18
+FROM golang:alpine3.18 AS build
 
 WORKDIR /app
+COPY . /app/
+RUN go build -o main
 
-COPY main.go /app/
 
-CMD [ "go", "run", "main.go" ]
+FROM alpine:3.18
+COPY --from=build /app/main .
+CMD [ "/main" ]
