@@ -63,3 +63,9 @@ Run in your terminal:
 ```bash
 curl http://localhost:8080/store/packs -d '{"num_of_items": 501}'
 ```
+
+# Decisions
+Regarding ```Flexible changing the pack size`without having to change the code``` point, For seek of simplicity, I used **redis** to store/get the packs. We may use dbs for permanent data.
+
+# TODO
+- Deploying to online server
