@@ -9,6 +9,9 @@ import (
 )
 
 func main() {
+	// Adding some seed data for packs
+	store.SeedData()
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/store/packs", getNumOfPacks)
 	log.Fatal(http.ListenAndServe(":8080", mux))
@@ -25,9 +28,12 @@ func getNumOfPacks(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	packsSizes := getPacksSizes()
+	numOfPacks, err := store.GetNumOfPacks(body.NumOfItems)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
-	numOfPacks := store.GetNumOfPacks(packsSizes, body.NumOfItems)
 	res, err := json.Marshal(numOfPacks)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -35,10 +41,4 @@ func getNumOfPacks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprint(w, string(res))
-
-}
-
-func getPacksSizes() []int {
-	// Dummy packs size data
-	return []int{250, 500, 1000, 2000, 5000}
 }

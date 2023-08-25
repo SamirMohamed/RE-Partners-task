@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestGetNumOfPacks(t *testing.T) {
+func TestGetNumOfPacksSizes(t *testing.T) {
 	testCases := []struct {
 		packsSizes              []int
 		orderItemsCount         int
@@ -55,7 +55,7 @@ func TestGetNumOfPacks(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run("", func(t *testing.T) {
-			got := GetNumOfPacks(tc.packsSizes, tc.orderItemsCount)
+			got := getNumOfPacksSizes(tc.packsSizes, tc.orderItemsCount)
 			if !reflect.DeepEqual(tc.expectedNumOfPacksSizes, got) {
 				t.Fatalf("expected: %v, got: %v", tc.expectedNumOfPacksSizes, got)
 			}
