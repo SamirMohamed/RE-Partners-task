@@ -15,6 +15,8 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/store/packs", getNumOfPacks)
 	mux.HandleFunc("/healthcheck", healthCheck)
+
+	log.Println("Starting server at port 8080 ....")
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
